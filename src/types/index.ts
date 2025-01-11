@@ -11,3 +11,11 @@ export interface ICustomers {
   budget: number
   address: string
 }
+
+export interface IProduct {
+  _id: string
+  title: string
+  createdAt: string
+  category: string
+  price: number
+}

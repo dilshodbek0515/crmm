@@ -1,6 +1,6 @@
 import { request } from '@/api'
 import CreateCS from '@/components/create-cs/CreateCS'
-import Table from '@/components/table/Table'
+import ProductTable from '@/components/productTable/ProductTable'
 import { Box, Button, Typography } from '@mui/material'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
@@ -11,11 +11,11 @@ const Product = () => {
     queryFn: () => {
       return request
         .get('/get/products')
-        .then(res => res)
+        .then(res => res.data)
         .catch(err => console.log(err))
     }
   })
-  console.log(data?.data?.innerData)
+  console.log(data?.innerData)
 
   return (
     <div>
@@ -27,7 +27,7 @@ const Product = () => {
         </Typography>
         <Button onClick={() => setOpen('product')}>Create</Button>
       </Box>
-      <Table data={data?.data?.innerData} />
+      <ProductTable data={data?.innerData} />
       <CreateCS open={open} close={() => setOpen(null)} />
     </div>
   )
