@@ -15,7 +15,8 @@ import Stack from '@mui/material/Stack'
 
 const BasicTable: FC<{ data: ICustomers[] }> = ({ data }) => {
   const [page, setPage] = React.useState(1)
-  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+  const handleChange = (e: React.ChangeEvent<unknown>, value: number) => {
+    e.preventDefault()
     setPage(value)
   }
 

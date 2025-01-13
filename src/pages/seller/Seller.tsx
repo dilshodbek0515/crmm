@@ -11,7 +11,12 @@ const Seller = () => {
     queryKey: ['todos'],
     queryFn: () => {
       return request
-        .get('/get/sellers')
+        .get('/get/sellers', {
+          params: {
+            skip: 0,
+            limit: 10
+          }
+        })
         .then(res => res)
         .catch(err => console.log(err))
     }

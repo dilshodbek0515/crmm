@@ -13,14 +13,13 @@ const Customer: FC = () => {
       return request
         .get('/get/customers', {
           params: {
-            skip: 0,
-            limit: 5
+            skip: 1,
+            limit: 10
           }
         })
         .then(res => res)
     }
   })
-  console.log(data?.data?.innerData)
 
   return (
     <div>
