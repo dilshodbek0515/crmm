@@ -10,7 +10,6 @@ import {
 import { useState } from 'react'
 import { request } from '@/api'
 import { useQuery } from '@tanstack/react-query'
-
 const Customer: React.FC = () => {
   const [open, setOpen] = useState<null | string>(null)
   const [page, setPage] = useState(1)

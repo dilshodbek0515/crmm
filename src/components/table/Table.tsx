@@ -11,11 +11,19 @@ import { ICustomers } from '@/types'
 
 import PushPinIcon from '@mui/icons-material/PushPin'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
-import { Button } from '@mui/material'
+import { Button, Stack } from '@mui/material'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { request } from '@/api'
+
+// payment
+import FormControl from '@mui/joy/FormControl'
+import FormLabel from '@mui/joy/FormLabel'
+import Input from '@mui/joy/Input'
+import Modal from '@mui/joy/Modal'
+import ModalDialog from '@mui/joy/ModalDialog'
+import DialogTitle from '@mui/joy/DialogTitle'
 
 const BasicTable: React.FC<{ data: ICustomers[]; type: string }> = ({
   data,
@@ -23,6 +31,7 @@ const BasicTable: React.FC<{ data: ICustomers[]; type: string }> = ({
 }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const [id, setId] = React.useState<null | string>(null)
+  const [modalOpen, setModalOpen] = React.useState<boolean>(false)
   const open = Boolean(anchorEl)
   const queryClient = useQueryClient()
   const handleClose = () => {
@@ -99,8 +108,35 @@ const BasicTable: React.FC<{ data: ICustomers[]; type: string }> = ({
                     >
                       <MenuItem onClick={() => handlePin(row._id, row.pin)}>
                         {row.pin ? 'Unpin' : 'Pin'}
+                      </MenuItem>{' '}
+                      <MenuItem onClick={() => setModalOpen(true)}>
+                        Payment
                       </MenuItem>
-                      <MenuItem onClick={handleClose}>Payment</MenuItem>
+                      <Modal
+                        open={modalOpen}
+                        onClose={() => setModalOpen(false)}
+                      >
+                        <ModalDialog>
+                          <DialogTitle>Payment</DialogTitle>
+
+                          <form
+                            onSubmit={(
+                              event: React.FormEvent<HTMLFormElement>
+                            ) => {
+                              event.preventDefault()
+                              setModalOpen(false)
+                            }}
+                          >
+                            <Stack spacing={2}>
+                              <FormControl>
+                                <FormLabel>Name</FormLabel>
+                                <Input autoFocus required />
+                              </FormControl>
+                              <Button type='submit'>Submit</Button>
+                            </Stack>
+                          </form>
+                        </ModalDialog>
+                      </Modal>
                     </Menu>
                   )}
                 </TableCell>
