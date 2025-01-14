@@ -10,6 +10,8 @@ export interface ICustomers {
   phone_primary: string
   budget: number
   address: string
+  pin: boolean
+  totalCount: number
 }
 
 export interface IProduct {
